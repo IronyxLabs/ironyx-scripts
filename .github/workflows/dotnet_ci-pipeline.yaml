@@ -27,7 +27,7 @@ jobs:
         id: build
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
         with:
-          cache_key: ${{ steps.restore-dependencies.outputs.cache_key }}
+          cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
 
   test:
     needs: [restore-dependencies, build]
@@ -42,4 +42,4 @@ jobs:
         id: test
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
         with:
-          artifact_key: ${{ steps.build.outputs.artifact_key }}
+          artifact_key: ${{ needs.build.outputs.artifact_key }}
