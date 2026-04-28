@@ -21,7 +21,7 @@ runs:
         path: packages
 
     - name: Build
-      run: dotnet builde --no-restore --configuration Release --packages ${{ github.workspace}}/packages --output ${{ github.workspace}}/artifacts
+      run: dotnet build --no-restore --configuration Release --packages ${{ github.workspace}}/packages --output ${{ github.workspace}}/artifacts
       shell: bash
       working-directory: src
 
