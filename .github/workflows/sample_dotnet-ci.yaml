@@ -5,4 +5,4 @@ on:
 
 jobs:
   ci:
-    uses: IronyxLabs/ironyx-scripts/.github/workflows/dotnet_ci-pipeline@chore/1-create-ci-workflow-for-net-applications
+    uses: IronyxLabs/ironyx-scripts/.github/workflows/dotnet_ci-pipeline.yaml@chore/1-create-ci-workflow-for-net-applications
