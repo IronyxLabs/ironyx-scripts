@@ -26,6 +26,8 @@ jobs:
       - name: Build
         id: build
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
+        with:
+          cache_key: ${{ steps.restore-dependencies.outputs.cache_key }}
 
   test:
     needs: [restore-dependencies, build]
