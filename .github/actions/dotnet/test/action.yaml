@@ -1,5 +1,5 @@
 name: dotnet.test
-descriptions: Allows to test a build dotnet project
+description: Allows to test a build dotnet project
 
 inputs:
   artifact_key:
