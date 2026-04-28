@@ -3,7 +3,7 @@ on:
 
 jobs:
   restore-dependencies:
-    runs-on: ubuntu-linux
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
