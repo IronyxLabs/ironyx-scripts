@@ -16,7 +16,7 @@ jobs:
 
   build:
     needs: [restore-dependencies]
-    runs-on: ubuntu-linux
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -29,7 +29,7 @@ jobs:
 
   test:
     needs: [restore-dependencies, build]
-    runs-on: ubuntu-linux
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
