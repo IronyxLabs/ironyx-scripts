@@ -21,6 +21,6 @@ runs:
         path: packages
 
     - name: Restore Dependencies
-      run: dotnet restore --packages packages
+      run: dotnet restore --packages ${{ github.workspace}}/packages
       shell: bash
       working-directory: src
