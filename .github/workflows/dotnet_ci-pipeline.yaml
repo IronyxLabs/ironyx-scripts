@@ -39,3 +39,5 @@ jobs:
       - name: Execute Tests
         id: test
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
+        with:
+          artifact_key: ${{ steps.build.outputs.artifact_key }}
