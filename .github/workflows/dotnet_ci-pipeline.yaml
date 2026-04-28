@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore Dependencies
-        uses: ironyx/ironyx-repository/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
         id: dependencies
 
   build:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: ironyx/ironyx-repository/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
 
   test:
     needs: [restore-dependencies, build]
@@ -38,4 +38,4 @@ jobs:
 
       - name: Execute Tests
         id: test
-        uses: ironyx/ironyx-repository/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
