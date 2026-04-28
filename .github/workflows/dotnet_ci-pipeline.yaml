@@ -1,0 +1,41 @@
+on:
+  workflow_call:
+
+jobs:
+  restore-dependencies:
+    runs-on: ubuntu-linux
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Restore Dependencies
+        uses: ironyx/ironyx-repository/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
+        id: dependencies
+
+  build:
+    needs: [restore-dependencies]
+    runs-on: ubuntu-linux
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        id: build
+        uses: ironyx/ironyx-repository/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
+
+  test:
+    needs: [restore-dependencies, build]
+    runs-on: ubuntu-linux
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Execute Tests
+        id: test
+        uses: ironyx/ironyx-repository/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
