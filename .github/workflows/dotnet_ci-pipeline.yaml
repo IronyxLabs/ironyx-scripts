@@ -5,18 +5,24 @@ jobs:
   restore-dependencies:
     runs-on: ubuntu-latest
 
+    outputs:
+      cache_key: ${{ steps.dependencies.outputs.cache_key }}
+
     steps:
       - name: Checkout Code
         id: checkout
         uses: actions/checkout@v4
 
       - name: Restore Dependencies
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
         id: dependencies
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
 
   build:
     needs: [restore-dependencies]
     runs-on: ubuntu-latest
+
+    outputs:
+      cache_key: ${{ steps.build.outputs.artifact_key }}
 
     steps:
       - name: Checkout Code
