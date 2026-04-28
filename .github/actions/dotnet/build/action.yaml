@@ -1,0 +1,38 @@
+name: dotnet.build
+description: Allows to build .NET solution
+
+inputs:
+  cache_key:
+    description: Key of the dendency cache
+    required: true
+
+outputs:
+  artifact_name:
+    description: Name of the uploaded artifacts
+    value: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
+
+runs:
+  using: composite
+  steps:
+    - name: Download Dependencies
+      uses: actions/cache@v4
+      with:
+        key: ${{ inputs.cahche_key }}
+        path: packages
+
+    - name: Build
+      run: dotnet builde --no-restore --configuration Release --packages packages --output ${{ github.workspace/artifacts }}
+      shell: bash
+      working-directory: src
+
+    - name: Generate Artifact Key
+      id: generate-artifact-key
+      run: echo "ARTIFACT_KEY=artifacts_${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Upload Artifacts
+      uses: actions/upload_artifacts@v4
+      with:
+        name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_NAME }}
+        path: ${{ github.workspace }}/artifacts
+        retention-days: 1

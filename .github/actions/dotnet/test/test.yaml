@@ -1,0 +1,18 @@
+name: dotnet.test
+descriptions: Allows to test a build dotnet project
+
+inputs:
+  artifact_key:
+    description: Name if the artifact that contains the built application
+
+runs:
+  using: composite
+  steps:
+    - name: Download Artifacts
+      uses: actions/download-artifacts@v4
+      with:
+        name: ${{ inputs.artifact_key }}
+
+    - name: Execute Tests
+      run: dotnet tests --results-directory test-results
+      shell: bash
