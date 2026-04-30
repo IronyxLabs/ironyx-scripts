@@ -20,12 +20,8 @@ runs:
         key: ${{ inputs.cache_key }}
         path: packages
 
-    - name: Dump packages
-      run: ls -a packages
-      shell: bash
-
     - name: Build
-      run: dotnet build --no-restore --configuration Release --packages ${{ github.workspace}}/packages --output ${{ github.workspace}}/artifacts
+      run: dotnet build --restore --configuration Release --packages ${{ github.workspace}}/packages -artifacts-path ${{ github.workspace}}/artifacts
       shell: bash
       working-directory: src
 
