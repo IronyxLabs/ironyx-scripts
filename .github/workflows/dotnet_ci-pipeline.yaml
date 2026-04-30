@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout Code
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Restore Dependencies
         id: dependencies
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout Code
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build
         id: build
@@ -40,10 +40,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        id: checkout
-        uses: actions/checkout@v4
-
       - name: Execute Tests
         id: test
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
