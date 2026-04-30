@@ -14,5 +14,15 @@ runs:
         name: ${{ inputs.artifact_key }}
 
     - name: Execute Tests
-      run: dotnet test **/**/*.Test.Unit.dll
+      run: dotnet test **/**/*.Test.Unit.dll --logger "trx;LogFileName=test-results.trx"  --results-directory results
       shell: bash
+
+    - name: Upload Test Report
+      uses: dorny/test-reporter@v3
+      with:
+        artifact: test-results
+        name: Unit Tests
+        path: "results/test-results.trx"
+        reporter: "dotnet-trx"
+        fail-on-empty: "false"
+        fail-on-error: "true"
