@@ -14,5 +14,5 @@ runs:
         name: ${{ inputs.artifact_key }}
 
     - name: Execute Tests
-      run: dotnet tests --results-directory test-results
+      run: dotnet test **/**/*.Test.Unit.dll
       shell: bash
