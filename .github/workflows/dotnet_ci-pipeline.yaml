@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      cache_key: ${{ steps.build.outputs.artifact_key }}
+      artifact_key: ${{ steps.build.outputs.artifact_key }}
 
     steps:
       - name: Checkout Code
