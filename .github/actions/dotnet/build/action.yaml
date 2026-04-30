@@ -5,9 +5,6 @@ inputs:
   cache_key:
     description: Key of the dendency cache
     required: true
-  debug:
-    description: Debug mode of the action
-    default: "false"
 
 outputs:
   artifact_key:
@@ -26,7 +23,6 @@ runs:
     - name: Dump packages
       run: ls -a packages
       shell: bash
-      if: ${{ inputs.debug == "true" }}
 
     - name: Build
       run: dotnet build --no-restore --configuration Release --packages ${{ github.workspace}}/packages --output ${{ github.workspace}}/artifacts
