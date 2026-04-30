@@ -20,7 +20,6 @@ runs:
     - name: Upload Test Report
       uses: dorny/test-reporter@v3
       with:
-        artifact: test-results
         name: Unit Tests
         path: "results/test-results.trx"
         reporter: "dotnet-trx"
