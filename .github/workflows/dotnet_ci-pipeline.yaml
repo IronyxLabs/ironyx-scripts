@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    secrets:
+      sonar-token:
+        description: SonarQube token
+        required: true
     inputs:
       sonar-project_key:
         description: SonarQube project key
@@ -45,7 +49,7 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
         with:
           project_key: ${{ inputs.sonar-project_key }}
-          token: ${{ secrets.SONAR_TOKEN }}
+          token: ${{ secrets.sonar-token }}
 
       - name: Build
         id: build
@@ -57,7 +61,7 @@ jobs:
         id: sonar-end
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
         with:
-          token: ${{ secrets.SONAR_TOKEN }}
+          token: ${{ secrets.sonar-token }}
 
   test:
     needs: [restore-dependencies, build]
