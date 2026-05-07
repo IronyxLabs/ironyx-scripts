@@ -29,5 +29,5 @@ runs:
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
+        mkdir ${{ runner.temp }}\scanner
         dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
