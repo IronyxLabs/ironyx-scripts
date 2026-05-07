@@ -1,9 +1,14 @@
 name: sonar.end
 description: End SonarCloud analysis
 
+inputs:
+  token:
+    description: SonarQube token
+    required: true
+
 runs:
   using: composite
   steps:
     - name: End Analysis
       shell: powershell
-      run: ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      run: ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ inputs.token }}"

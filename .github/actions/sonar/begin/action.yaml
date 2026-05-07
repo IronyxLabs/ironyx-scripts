@@ -5,10 +5,13 @@ inputs:
   project_key:
     description: SonarQube project key
     required: true
+  token:
+    description: SonarQube token
+    required: true
 
 runs:
   using: composite
   steps:
     - name: Begin Analysis
       shell: powershell
-      run: ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      run: ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}"
