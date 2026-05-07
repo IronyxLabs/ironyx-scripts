@@ -1,5 +1,10 @@
 on:
   workflow_call:
+    inputs:
+      sonar_project-key:
+        description: SonarQube project key
+        required: true
+        type: string
 
 jobs:
   restore-dependencies:
@@ -28,12 +33,28 @@ jobs:
       - name: Checkout Code
         id: checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Initialize SonarCloud Scanner
+        id: sonar-init
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
+
+      - name: Begin SonarQube Analysis
+        id: sonar-init
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
+        with:
+          project-key: ${{ inputs.sonar_project-key }}
 
       - name: Build
         id: build
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
         with:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
+
+      - name: End SonarQube Analysis
+        id: sonar-init
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
 
   test:
     needs: [restore-dependencies, build]

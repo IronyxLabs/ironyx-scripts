@@ -1,0 +1,14 @@
+name: sonar.begin
+description: Begin SonarCloud analysis
+
+inputs:
+  project_key:
+    description: SonarQube project key
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Begin Analysis
+      shell: powershell
+      run: ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

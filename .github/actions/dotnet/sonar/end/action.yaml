@@ -1,0 +1,9 @@
+name: sonar.end
+description: End SonarCloud analysis
+
+runs:
+  using: composite
+  steps:
+    - name: End Analysis
+      shell: powershell
+      run: ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
