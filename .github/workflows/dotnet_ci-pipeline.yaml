@@ -41,7 +41,7 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
 
       - name: Begin SonarQube Analysis
-        id: sonar-init
+        id: sonar-begin
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
         with:
           project-key: ${{ inputs.sonar_project-key }}
@@ -53,7 +53,7 @@ jobs:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
 
       - name: End SonarQube Analysis
-        id: sonar-init
+        id: sonar-end
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
 
   test:
