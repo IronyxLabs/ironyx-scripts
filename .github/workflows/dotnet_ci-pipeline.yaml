@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      sonar_project-key:
+      sonar-project_key:
         description: SonarQube project key
         required: true
         type: string
@@ -44,7 +44,7 @@ jobs:
         id: sonar-begin
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
         with:
-          project-key: ${{ inputs.sonar_project-key }}
+          project_key: ${{ inputs.sonar-project_key }}
           token: ${{ secrets.SONAR_TOKEN }}
 
       - name: Build
