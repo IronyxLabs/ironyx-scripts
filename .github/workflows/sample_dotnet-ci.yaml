@@ -6,6 +6,7 @@ on:
 jobs:
   ci:
     uses: IronyxLabs/ironyx-scripts/.github/workflows/dotnet_ci-pipeline.yaml@chore/1-create-ci-workflow-for-net-applications
+    secrets:
+      sonar-token: ${{ secrets.SONAR_TOKEN }}
     with:
       sonar-project_key: IronyxLabs_ironyx-scripts
-      sonar-token: "${{ secrets.SONAR_TOKEN }}"
