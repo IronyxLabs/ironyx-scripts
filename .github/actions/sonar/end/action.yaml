@@ -10,5 +10,5 @@ runs:
   using: composite
   steps:
     - name: End Analysis
-      shell: powershell
+      shell: bash
       run: ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ inputs.token }}"

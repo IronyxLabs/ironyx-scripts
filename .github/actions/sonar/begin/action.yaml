@@ -13,5 +13,5 @@ runs:
   using: composite
   steps:
     - name: Begin Analysis
-      shell: powershell
+      shell: bash
       run: ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}"
