@@ -14,4 +14,4 @@ runs:
   steps:
     - name: Begin Analysis
       shell: bash
-      run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}"
+      run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}" /d:sonar.sources="src"
