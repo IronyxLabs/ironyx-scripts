@@ -29,8 +29,8 @@ jobs:
         with:
           project_key: ${{ inputs.sonar-project_key }}
           token: ${{ secrets.sonar-token }}
-          packages_cache_key: ${{ steps.sonar-init.outputs.packages_cache_key }}
-          scanner_cache_key: ${{ steps.sonar-init.outputs.sonar_cache_key }}
+          packages_cache_key: steps.sonar-init.outputs.packages_cache_key
+          scanner_cache_key: steps.sonar-init.outputs.sonar_cache_key
 
   restore-dependencies:
     needs: [pre]
