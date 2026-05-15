@@ -28,7 +28,7 @@ runs:
       uses: actions/cache@v5
       with:
         key: ${{ inputs.scanner_cache_key }}
-        restore-keys: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
+        restore-keys: ${{ inputs.scanner_cache_key }}
         path: ${{ runner.temp }}/scanner
 
     - name: Begin Analysis
