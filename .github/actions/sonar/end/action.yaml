@@ -36,6 +36,10 @@ runs:
         name: ${{ inputs.analysis_key }}
         path: src/.sonarqube
 
+    - name: Dump .sonarqube
+      run: ls -a src/.sonarqube
+      shell: bash
+
     - name: End Analysis
       shell: bash
       run: ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ inputs.token }}"
