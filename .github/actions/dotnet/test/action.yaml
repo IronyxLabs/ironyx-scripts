@@ -5,7 +5,7 @@ runs:
   using: composite
   steps:
     - name: Execute Tests
-      run: dotnet test **/**/*.Test.Unit.dll --logger "trx;LogFileName=test-results.trx" --results-directory results --collect:"XPlat Code Coverage"
+      run: dotnet test **/**/*.Test.Unit.csproj --logger "trx;LogFileName=test-results.trx" --results-directory results --collect:"XPlat Code Coverage"
       shell: bash
 
     - name: Upload Artifacts
