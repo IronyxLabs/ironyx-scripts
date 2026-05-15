@@ -23,5 +23,5 @@ runs:
         include-hidden-files: true
 
     - name: Dump
-      run: ls -a
+      run: ls src -a
       shell: bash
