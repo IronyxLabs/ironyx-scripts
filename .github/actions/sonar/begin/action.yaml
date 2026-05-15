@@ -53,3 +53,8 @@ runs:
       shell: bash
       run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}"
       working-directory: src
+
+    - name: Bump src dir
+      shell: bash
+      run: ls -a
+      working-directory: src
