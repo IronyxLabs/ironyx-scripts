@@ -11,6 +11,9 @@ inputs:
   scanner_cache_key:
     description: Cache Key for sonar scanner
     required: true
+  analysis_cache_key:
+    description: Cache Key for sonar analysis
+    required: true
 
 runs:
   using: composite
@@ -26,6 +29,13 @@ runs:
       with:
         key: ${{ inputs.scanner_cache_key }}
         path: ${{ runner.temp }}/scanner
+
+    - name: Download Sonar Analysis
+      uses: actions/cache@v5
+      working-directory: src
+      with:
+        key: ${{ inputs.analysis_cache_key }}
+        path: .sonarqube
 
     - name: End Analysis
       shell: bash

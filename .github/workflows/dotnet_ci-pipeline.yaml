@@ -44,6 +44,7 @@ jobs:
 
     outputs:
       artifact_key: ${{ steps.build.outputs.artifact_key }}
+      sonar-analysis_cache_key: ${{ steps.sonar-begin.outputs.analysis_cache_key }}
 
     steps:
       - name: Checkout Code
@@ -96,3 +97,4 @@ jobs:
           token: ${{ secrets.sonar-token }}
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
           scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
+          analysis_cache_key: ${{ needs.build.outputs.sonar-analysis_cache_key }}

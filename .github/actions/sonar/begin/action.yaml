@@ -1,6 +1,11 @@
 name: sonar.begin
 description: Begin SonarCloud analysis
 
+outputs:
+  analysis_cache_key:
+    description: Analysis cache key
+    value: ${{ steps.generate-cache-key.CACHE_KEY }}
+
 inputs:
   project_key:
     description: SonarQube project key
@@ -30,6 +35,19 @@ runs:
         key: ${{ inputs.scanner_cache_key }}
         restore-keys: ${{ inputs.scanner_cache_key }}
         path: ${{ runner.temp }}/scanner
+
+    - name: Generate Cache Key
+      id: generate-cache-key
+      run: echo "CACHE_KEY=sonar_analysis_${{ github.event.repository.id }}" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Initialize Cache
+      uses: actions/cache@v5
+      id: init-cache
+      with:
+        key: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
+        restore-keys: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
+        path: .sonarqube
 
     - name: Begin Analysis
       shell: bash
