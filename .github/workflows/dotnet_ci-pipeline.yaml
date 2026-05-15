@@ -89,4 +89,4 @@ jobs:
         with:
           token: ${{ secrets.sonar-token }}
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
-          sonar_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
+          scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
