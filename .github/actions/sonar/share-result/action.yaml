@@ -10,7 +10,7 @@ runs:
   using: composite
   steps:
     - name: Dump src dir
-      run: ls -a
+      run: ls -a src
       shell: bash
 
     - name: Generate Artifact Key
