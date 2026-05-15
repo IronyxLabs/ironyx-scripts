@@ -4,7 +4,7 @@ description: Begin SonarCloud analysis
 outputs:
   analysis_cache_key:
     description: Analysis cache key
-    value: ${{ steps.generate-cache-key.CACHE_KEY }}
+    value: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
 
 inputs:
   project_key:
