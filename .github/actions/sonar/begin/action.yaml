@@ -47,7 +47,7 @@ runs:
       with:
         key: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
         restore-keys: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
-        path: .sonarqube
+        path: src/.sonarqube
 
     - name: Begin Analysis
       shell: bash
