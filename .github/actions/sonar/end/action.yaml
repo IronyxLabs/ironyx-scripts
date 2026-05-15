@@ -15,18 +15,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Download Sonar Packages
-      uses: actions/cache@v5
-      with:
-        key: ${{ inputs.packages_cache_key }}
-        path: ~/sonar/cache
-
-    - name: Download Sonar Scanner
-      uses: actions/cache@v5
-      with:
-        key: ${{ inputs.scanner_cache_key }}
-        path: ${{ runner.temp }}/scanner
-
     - name: End Analysis
       shell: bash
       run: ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ inputs.token }}"
