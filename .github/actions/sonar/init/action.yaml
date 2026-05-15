@@ -4,10 +4,10 @@ description: Initialize SonarCloud analysis
 outputs:
   packages_cache_key:
     description: Generated cache key for SonarQube Packages
-    value: ${{ steps.generate-packages-cache-key.outputs.CACHE_KEY }}
+    value: ${{ steps.generate-packages-cache-key.outputs.PACKAGES_CACHE_KEY }}
   scanner_cache_key:
     description: Generated cache key for SonarQube Scanner
-    value: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
+    value: ${{ steps.generate-scanner-cache-key.outputs.SONAR_CACHE_KEY }}
 
 runs:
   using: composite
@@ -20,29 +20,29 @@ runs:
 
     - name: Generate Packages Cache Key
       id: generate-packages-cache-key
-      run: echo "CACHE_KEY=${{ runner.os }}-sonar-packages" >> "$GITHUB_OUTPUT"
+      run: echo "PACKAGES_CACHE_KEY=${{ runner.os }}-sonar-packages" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Generate Scanner Cache Key
       id: generate-scanner-cache-key
-      run: echo "CACHE_KEY=${{ runner.os }}-sonar-scanner" >> "$GITHUB_OUTPUT"
+      run: echo "SONAR_CACHE_KEY=${{ runner.os }}-sonar-scanner" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Cache SonarQube packages
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: cache-packages
       with:
         path: ~/sonar/cache
-        key: ${{ steps.generate-packages-cache-key.outputs.CACHE_KEY }}
-        restore-keys: ${{ steps.generate-packages-cache-key.outputs.CACHE_KEY }}
+        key: ${{ steps.generate-packages-cache-key.outputs.PACKAGES_CACHE_KEY }}
+        restore-keys: ${{ steps.generate-packages-cache-key.outputs.PACKAGES_CACHE_KEY }}
 
     - name: Cache SonarQube Cloud scanner
       id: cache-sonar-scanner
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ${{ runner.temp }}/scanner
-        key: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
-        restore-keys: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
+        key: ${{ steps.generate-scanner-cache-key.outputs.SONAR_CACHE_KEY }}
+        restore-keys: ${{ steps.generate-scanner-cache-key.outputs.SONAR_CACHE_KEY }}
 
     - name: Install SonarQube Cloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
