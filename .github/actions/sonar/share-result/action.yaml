@@ -9,10 +9,6 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Dump src dir
-      run: ls -a src
-      shell: bash
-
     - name: Generate Artifact Key
       id: generate-artifact-key
       run: echo "ARTIFACT_KEY=analysis_${{ github.run_id }}" >> "$GITHUB_OUTPUT"
@@ -22,6 +18,8 @@ runs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
-        path: src/.sonarqube
+        path: |
+          src/.sonarqube
+          src/.sonar
         retention-days: 1
         include-hidden-files: true

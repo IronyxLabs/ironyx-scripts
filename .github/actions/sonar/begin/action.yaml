@@ -36,19 +36,6 @@ runs:
         restore-keys: ${{ inputs.scanner_cache_key }}
         path: ${{ runner.temp }}/scanner
 
-    - name: Generate Cache Key
-      id: generate-cache-key
-      run: echo "CACHE_KEY=sonar_analysis_${{ github.event.repository.id }}" >> "$GITHUB_OUTPUT"
-      shell: bash
-
-    - name: Initialize Cache
-      uses: actions/cache@v5
-      id: init-cache
-      with:
-        key: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
-        restore-keys: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
-        path: src/.sonarqube
-
     - name: Begin Analysis
       shell: bash
       run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}"
