@@ -7,3 +7,10 @@ runs:
     - name: Execute Tests
       run: dotnet test **/**/*.Test.Unit.dll --logger "trx;LogFileName=test-results.trx"  --results-directory results
       shell: bash
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: test_results_${{ github.run_id }}
+        path: ${{ github.workspace }}/results
+        retention-days: 1
