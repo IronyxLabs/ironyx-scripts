@@ -76,5 +76,3 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
         with:
           token: ${{ secrets.sonar-token }}
-          packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
-          scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}

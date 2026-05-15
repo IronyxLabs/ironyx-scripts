@@ -5,12 +5,6 @@ inputs:
   token:
     description: SonarQube token
     required: true
-  packages_cache_key:
-    description: Cache Key for sonar packages
-    required: true
-  scanner_cache_key:
-    description: Cache Key for sonar scanner
-    required: true
 
 runs:
   using: composite
