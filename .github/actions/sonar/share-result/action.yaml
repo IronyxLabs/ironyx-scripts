@@ -16,8 +16,7 @@ runs:
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v7
-      working-directory: src
       with:
         name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
-        path: .sonarqube
+        path: ${{ github.workspace }}/src/.sonarqube
         retention-days: 1
