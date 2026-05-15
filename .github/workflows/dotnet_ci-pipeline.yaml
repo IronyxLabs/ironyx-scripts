@@ -23,17 +23,7 @@ jobs:
         id: sonar-init
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
 
-      - name: Begin SonarQube Analysis
-        id: sonar-begin
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
-        with:
-          project_key: ${{ inputs.sonar-project_key }}
-          token: ${{ secrets.sonar-token }}
-          packages_cache_key: steps.sonar-init.outputs.packages_cache_key
-          scanner_cache_key: steps.sonar-init.outputs.sonar_cache_key
-
   restore-dependencies:
-    needs: [pre]
     runs-on: ubuntu-latest
 
     outputs:
@@ -61,6 +51,15 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
+      - name: Begin SonarQube Analysis
+        id: sonar-begin
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
+        with:
+          project_key: ${{ inputs.sonar-project_key }}
+          token: ${{ secrets.sonar-token }}
+          packages_cache_key: ${{ needs.pre.sonar-init.outputs.packages_cache_key }}
+          scanner_cache_key: ${{ needs.pre.sonar-init.outputs.sonar_cache_key }}
 
       - name: Build
         id: build
