@@ -11,6 +11,27 @@ on:
         type: string
 
 jobs:
+  pre:
+    runs-on: ubuntu-latest
+
+    outputs:
+      sonar-packages_cache_key: ${{ steps.sonar-init.outputs.packages_cache_key }}
+      sonar-sonar_cache_key: ${{ steps.sonar-init.outputs.sonar_cache_key }}
+
+    steps:
+      - name: Initialize SonarQube Scanner
+        id: sonar-init
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
+
+      - name: Begin SonarQube Analysis
+        id: sonar-begin
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
+        with:
+          project_key: ${{ inputs.sonar-project_key }}
+          token: ${{ secrets.sonar-token }}
+          packages_cache_key: ${{ steps.sonar-init.outputs.packages_cache_key }}
+          scanner_cache_key: ${{ steps.sonar-init.outputs.sonar_cache_key }}
+
   restore-dependencies:
     runs-on: ubuntu-latest
 
@@ -40,28 +61,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Initialize SonarCloud Scanner
-        id: sonar-init
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
-
-      - name: Begin SonarQube Analysis
-        id: sonar-begin
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
-        with:
-          project_key: ${{ inputs.sonar-project_key }}
-          token: ${{ secrets.sonar-token }}
-
       - name: Build
         id: build
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
         with:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
-
-      - name: End SonarQube Analysis
-        id: sonar-end
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
-        with:
-          token: ${{ secrets.sonar-token }}
 
   test:
     needs: [restore-dependencies, build]
@@ -73,3 +77,16 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
         with:
           artifact_key: ${{ needs.build.outputs.artifact_key }}
+
+  post:
+    needs: [pre, restore-dependencies, build, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: End SonarQube Analysis
+        id: sonar-end
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
+        with:
+          token: ${{ secrets.sonar-token }}
+          packages_cache_key: ${{ needs.pre.sonar-packages_cache_key }}
+          sonar_cache_key: ${{ needs.pre.sonar-sonar_cache_key }}

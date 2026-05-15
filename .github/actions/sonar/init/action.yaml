@@ -1,6 +1,14 @@
 name: sonar.init
 description: Initialize SonarCloud analysis
 
+outputs:
+  packages_cache_key:
+    description: Generated cache key for SonarQube Packages
+    value: ${{ steps.generate-packages-cache-key.outputs.CACHE_KEY }}
+  scanner_cache_key:
+    description: Generated cache key for SonarQube Scanner
+    value: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
+
 runs:
   using: composite
   steps:
@@ -10,20 +18,31 @@ runs:
         java-version: 17
         distribution: "zulu"
 
-    - name: Cache SonarQube Cloud packages
+    - name: Generate Packages Cache Key
+      id: generate-packages-cache-key
+      run: echo "CACHE_KEY=${{ runner.os }}-sonar" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Generate Scanner Cache Key
+      id: generate-scanner-cache-key
+      run: echo "CACHE_KEY=${{ runner.os }}-sonar" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Cache SonarQube packages
       uses: actions/cache@v4
+      id: cache-packages
       with:
         path: ~/sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
+        key: ${{ steps.generate-packages-cache-key.outputs.CACHE_KEY }}
+        restore-keys: ${{ steps.generate-packages-cache-key.outputs.CACHE_KEY }}
 
     - name: Cache SonarQube Cloud scanner
       id: cache-sonar-scanner
       uses: actions/cache@v4
       with:
         path: ${{ runner.temp }}/scanner
-        key: ${{ runner.os }}-sonar-scanner
-        restore-keys: ${{ runner.os }}-sonar-scanner
+        key: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
+        restore-keys: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
 
     - name: Install SonarQube Cloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'

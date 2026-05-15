@@ -8,10 +8,29 @@ inputs:
   token:
     description: SonarQube token
     required: true
+  packages_cache_key:
+    description: Cache Key for sonar packages
+    required: true
+  scanner_cache_key:
+    description: Cache Key for sonar scanner
+    required: true
 
 runs:
   using: composite
   steps:
+    - name: Download Sonar Packages
+      uses: actions/cache@v5
+      with:
+        key: ${{ inputs.packages_cache_key }}
+        path: ~/sonar/cache
+
+    - name: Download Sonar Scanner
+      uses: actions/cache@v5
+      with:
+        key: ${{ inputs.scanner_cache_key }}
+        restore-keys: ${{ steps.generate-scanner-cache-key.outputs.CACHE_KEY }}
+        path: ${{ runner.temp }}/scanner
+
     - name: Begin Analysis
       shell: bash
       run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}"
