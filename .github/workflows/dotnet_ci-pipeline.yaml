@@ -44,7 +44,7 @@ jobs:
 
     outputs:
       artifact_key: ${{ steps.build.outputs.artifact_key }}
-      sonar-analysis_cache_key: ${{ steps.sonar-begin.outputs.analysis_cache_key }}
+      sonar-analysis_key: ${{ steps.sonar-share-analysis-result.outputs.artifact_key }}
 
     steps:
       - name: Checkout Code
@@ -67,6 +67,10 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
         with:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
+
+      - name: Share Analysis Result
+        id: sonar-share-analysis-result
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/share-result@chore/1-create-ci-workflow-for-net-applications
 
   test:
     needs: [pre, restore-dependencies, build]
@@ -97,4 +101,4 @@ jobs:
           token: ${{ secrets.sonar-token }}
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
           scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
-          analysis_cache_key: ${{ needs.build.outputs.sonar-analysis_cache_key }}
+          analysis_key: ${{ needs.build.outputs.sonar-analysis_key }}

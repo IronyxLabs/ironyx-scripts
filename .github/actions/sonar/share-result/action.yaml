@@ -1,0 +1,22 @@
+name: sonar.share
+description: Share analysis output
+
+outputs:
+  artifact_key:
+    description: SonarQube analysis out artifact
+    value: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
+
+runs:
+  using: composite
+  steps:
+    - name: Generate Artifact Key
+      id: generate-artifact-key
+      run: echo "ARTIFACT_KEY=analysis_${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
+        path: src/.sonarqube
+        retention-days: 1
