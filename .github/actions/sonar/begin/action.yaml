@@ -33,5 +33,5 @@ runs:
 
     - name: Begin Analysis
       shell: bash
-      run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}" /d:sonar.cs.vstest.reportsPaths="${{ github.workspace}}/results"
+      run: ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"${{ inputs.project_key }}" /o:"ironyxlabs" /d:sonar.token="${{ inputs.token }}" /d:sonar.cs.vstest.reportsPaths="${{ github.workspace}}/results" /d:sonar.cs.cobertura.reportsPaths="${{ github.workspace}}/results/coverage.cobertura.xml"
       working-directory: src
