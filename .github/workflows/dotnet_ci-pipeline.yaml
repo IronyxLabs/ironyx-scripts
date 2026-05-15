@@ -58,8 +58,8 @@ jobs:
         with:
           project_key: ${{ inputs.sonar-project_key }}
           token: ${{ secrets.sonar-token }}
-          packages_cache_key: ${{ needs.pre.sonar-init.outputs.packages_cache_key }}
-          scanner_cache_key: ${{ needs.pre.sonar-init.outputs.sonar_cache_key }}
+          packages_cache_key: ${{ needs.pre.outputs.packages_cache_key }}
+          scanner_cache_key: ${{ needs.pre.outputs.sonar_cache_key }}
 
       - name: Build
         id: build
