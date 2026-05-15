@@ -33,6 +33,7 @@ jobs:
           scanner_cache_key: ${{ steps.sonar-init.outputs.sonar_cache_key }}
 
   restore-dependencies:
+    needs: [pre]
     runs-on: ubuntu-latest
 
     outputs:
@@ -48,7 +49,7 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
 
   build:
-    needs: [restore-dependencies]
+    needs: [pre, restore-dependencies]
     runs-on: ubuntu-latest
 
     outputs:
@@ -68,7 +69,7 @@ jobs:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
 
   test:
-    needs: [restore-dependencies, build]
+    needs: [pre, restore-dependencies, build]
     runs-on: ubuntu-latest
 
     steps:

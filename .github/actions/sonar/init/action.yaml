@@ -20,12 +20,12 @@ runs:
 
     - name: Generate Packages Cache Key
       id: generate-packages-cache-key
-      run: echo "CACHE_KEY=${{ runner.os }}-sonar" >> "$GITHUB_OUTPUT"
+      run: echo "CACHE_KEY=${{ runner.os }}-sonar-packages" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Generate Scanner Cache Key
       id: generate-scanner-cache-key
-      run: echo "CACHE_KEY=${{ runner.os }}-sonar" >> "$GITHUB_OUTPUT"
+      run: echo "CACHE_KEY=${{ runner.os }}-sonar-scanner" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Cache SonarQube packages
@@ -48,5 +48,5 @@ runs:
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        mkdir ${{ runner.temp }}/scanner
+        mkdir -p ${{ runner.temp }}/scanner
         dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}/scanner
