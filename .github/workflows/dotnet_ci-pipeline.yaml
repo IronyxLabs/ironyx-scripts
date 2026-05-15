@@ -16,7 +16,7 @@ jobs:
 
     outputs:
       sonar-packages_cache_key: ${{ steps.sonar-init.outputs.packages_cache_key }}
-      sonar-sonar_cache_key: ${{ steps.sonar-init.outputs.sonar_cache_key }}
+      sonar-scanner_cache_key: ${{ steps.sonar-init.outputs.scanner_cache_key }}
 
     steps:
       - name: Initialize SonarQube Scanner
@@ -59,7 +59,7 @@ jobs:
           project_key: ${{ inputs.sonar-project_key }}
           token: ${{ secrets.sonar-token }}
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
-          scanner_cache_key: ${{ needs.pre.outputs.sonar-sonar_cache_key }}
+          scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
 
       - name: Build
         id: build
@@ -89,4 +89,4 @@ jobs:
         with:
           token: ${{ secrets.sonar-token }}
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
-          sonar_cache_key: ${{ needs.pre.outputs.sonar-sonar_cache_key }}
+          sonar_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
