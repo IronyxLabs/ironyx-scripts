@@ -9,6 +9,10 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Dump src dir
+      run: ls -a
+      shell: bash
+
     - name: Generate Artifact Key
       id: generate-artifact-key
       run: echo "ARTIFACT_KEY=analysis_${{ github.run_id }}" >> "$GITHUB_OUTPUT"
