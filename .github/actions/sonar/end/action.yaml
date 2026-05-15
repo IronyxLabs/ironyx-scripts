@@ -34,7 +34,7 @@ runs:
       uses: actions/download-artifact@v8
       with:
         name: ${{ inputs.analysis_key }}
-        path: src/.sonarqube
+        path: src
 
     - name: End Analysis
       shell: bash

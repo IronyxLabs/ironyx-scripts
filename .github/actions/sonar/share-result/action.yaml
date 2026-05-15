@@ -18,8 +18,10 @@ runs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
-        path: |
-          src/.sonarqube
-          src/.sonar
+        path: src/.sonarqube
         retention-days: 1
         include-hidden-files: true
+
+    - name: Dump
+      run: ls -a
+      shell: bash
