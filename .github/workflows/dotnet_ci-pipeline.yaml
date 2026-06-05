@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Initialize SonarQube Scanner
         id: sonar-init
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@v1
 
   restore-dependencies:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
 
       - name: Restore Dependencies
         id: dependencies
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@v1
 
   build:
     needs: [pre, restore-dependencies]
@@ -57,7 +57,7 @@ jobs:
 
       - name: Begin SonarQube Analysis
         id: sonar-begin
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@v1
         with:
           project_key: ${{ inputs.sonar-project_key }}
           token: ${{ secrets.sonar-token }}
@@ -66,22 +66,22 @@ jobs:
 
       - name: Build & Test
         id: build
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@v1
         with:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
 
       - name: Execute Tests
         id: test
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@v1
 
       - name: End SonarQube Analysis
         id: sonar-end
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@v1
         with:
           token: ${{ secrets.sonar-token }}
 
       - name: Publish Test Results
         id: publish-test-result
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-test-result@chore/1-create-ci-workflow-for-net-applications
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-test-result@v1
         with:
           token: ${{ secrets.testspace-token }}
