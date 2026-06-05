@@ -8,7 +8,7 @@
             Assert.True(true);
         }
 
-        [Fact(DisplayName = "Fail Test", Skip = "Execute only if testing the pipeline termination")]
+        [Fact(DisplayName = "Fail Test")]
         public void Fail_Test()
         {
             Assert.Fail("This is a failed test :(");
