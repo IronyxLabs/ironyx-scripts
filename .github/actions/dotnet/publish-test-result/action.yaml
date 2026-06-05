@@ -1,6 +1,11 @@
 name: dotnet.publish-test-result
 description: Publishing test result to TestSpace.
 
+inputs:
+  token:
+    description: TestSpace token
+    required: true
+
 runs:
   using: composite
   steps:
@@ -14,3 +19,5 @@ runs:
       run: testspace results/*.trx
       if: always()
       shell: bash
+      env:
+        TESTSPACE_TOKEN: ${{ inputs.token }}

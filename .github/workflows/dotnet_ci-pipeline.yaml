@@ -4,6 +4,9 @@ on:
       sonar-token:
         description: SonarQube token
         required: true
+      testspace-token:
+        description: TestSpace token
+        required: true
     inputs:
       sonar-project_key:
         description: SonarQube project key
@@ -80,3 +83,5 @@ jobs:
       - name: Publish Test Results
         id: publish-test-result
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-test-result@chore/1-create-ci-workflow-for-net-applications
+        with:
+          token: ${{ secrets.testspace-token }}
