@@ -13,3 +13,4 @@ runs:
       shell: bash
       run: ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ inputs.token }}"
       working-directory: src
+      if: always()
