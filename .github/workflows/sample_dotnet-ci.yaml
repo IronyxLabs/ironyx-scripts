@@ -1,7 +1,14 @@
 name: Sample CI
 
 on:
+  pull_request:
+    branches:
+      - main
+      - develop
+      - release/*
   workflow_dispatch:
+
+run-name: ${{ github.event_name == 'pull_request' @&& 'PR CI Pipeline' || 'Manual CI Pipeline' }}
 
 jobs:
   ci:
