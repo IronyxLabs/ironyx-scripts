@@ -1,0 +1,16 @@
+name: dotnet.publish-test-result
+description: Publishing test result to TestSpace.
+
+runs:
+  using: composite
+  steps:
+    - name: Install TestSpace CLI
+      uses: testspace-com/setup-testspace@v1
+      with:
+        domain: ${{ github.repository_owner }}
+
+    - name: Publish Test Result
+      id: publish
+      run: testspace results/*.trx
+      if: always()
+      shell: bash

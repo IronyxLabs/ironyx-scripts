@@ -61,7 +61,7 @@ jobs:
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
           scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
 
-      - name: Build
+      - name: Build & Test
         id: build
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
         with:
@@ -76,3 +76,7 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
         with:
           token: ${{ secrets.sonar-token }}
+
+      - name: Publish Test Results
+        id: publish-test-result
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-test-result@chore/1-create-ci-workflow-for-net-applications

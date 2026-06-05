@@ -1,5 +1,5 @@
 name: dotnet.test
-description: Allows to test a build dotnet project
+description: Allows to test a built dotnet project
 
 runs:
   using: composite
