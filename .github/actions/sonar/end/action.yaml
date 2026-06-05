@@ -1,0 +1,16 @@
+name: sonar.end
+description: End SonarCloud analysis
+
+inputs:
+  token:
+    description: SonarQube token
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: End Analysis
+      shell: bash
+      run: ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ inputs.token }}"
+      working-directory: src
+      if: always()

@@ -1,0 +1,87 @@
+on:
+  workflow_call:
+    secrets:
+      sonar-token:
+        description: SonarQube token
+        required: true
+      testspace-token:
+        description: TestSpace token
+        required: true
+    inputs:
+      sonar-project_key:
+        description: SonarQube project key
+        required: true
+        type: string
+
+jobs:
+  pre:
+    runs-on: ubuntu-latest
+
+    outputs:
+      sonar-packages_cache_key: ${{ steps.sonar-init.outputs.packages_cache_key }}
+      sonar-scanner_cache_key: ${{ steps.sonar-init.outputs.scanner_cache_key }}
+
+    steps:
+      - name: Initialize SonarQube Scanner
+        id: sonar-init
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/init@chore/1-create-ci-workflow-for-net-applications
+
+  restore-dependencies:
+    runs-on: ubuntu-latest
+
+    outputs:
+      cache_key: ${{ steps.dependencies.outputs.cache_key }}
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v6
+
+      - name: Restore Dependencies
+        id: dependencies
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@chore/1-create-ci-workflow-for-net-applications
+
+  build:
+    needs: [pre, restore-dependencies]
+    runs-on: ubuntu-latest
+
+    outputs:
+      artifact_key: ${{ steps.build.outputs.artifact_key }}
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Begin SonarQube Analysis
+        id: sonar-begin
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/begin@chore/1-create-ci-workflow-for-net-applications
+        with:
+          project_key: ${{ inputs.sonar-project_key }}
+          token: ${{ secrets.sonar-token }}
+          packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
+          scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
+
+      - name: Build & Test
+        id: build
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@chore/1-create-ci-workflow-for-net-applications
+        with:
+          cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
+
+      - name: Execute Tests
+        id: test
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@chore/1-create-ci-workflow-for-net-applications
+
+      - name: End SonarQube Analysis
+        id: sonar-end
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/end@chore/1-create-ci-workflow-for-net-applications
+        with:
+          token: ${{ secrets.sonar-token }}
+
+      - name: Publish Test Results
+        id: publish-test-result
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-test-result@chore/1-create-ci-workflow-for-net-applications
+        with:
+          token: ${{ secrets.testspace-token }}
