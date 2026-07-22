@@ -11,6 +11,7 @@ on:
       net-solution:
         description: Dotnet solution name
         required: true
+        type: string
       sonar-project_key:
         description: SonarQube project key
         required: true
