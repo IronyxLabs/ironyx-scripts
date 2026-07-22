@@ -1,11 +1,16 @@
 name: dotnet.test
 description: Allows to test a built dotnet project
 
+inputs:
+  solution:
+    description: Solution name
+    required: true
+
 runs:
   using: composite
   steps:
     - name: Execute Tests
-      run: dotnet test **/**/*.Test.Unit.csproj --logger "trx;LogFileName=test-results.trx" --results-directory results --collect:"XPlat Code Coverage"
+      run: dotnet test ${{ inputs.solution }} --logger "trx;LogFileName=test-results.trx" --results-directory results --collect:"XPlat Code Coverage"
       shell: bash
       continue-on-error: true
 
