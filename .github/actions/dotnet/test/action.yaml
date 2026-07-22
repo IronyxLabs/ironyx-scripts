@@ -16,6 +16,7 @@ runs:
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v7
+      working-directory: src
       with:
         name: test_results_${{ github.run_id }}
         path: ${{ github.workspace }}/results
