@@ -76,7 +76,7 @@ jobs:
 
       - name: Execute Tests
         id: test
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@v1
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@fix/handle-multiple-tests
         with:
           solution: ${{ inputs.net-solution }}
 
