@@ -10,5 +10,5 @@ runs:
   using: composite
   steps:
     - name: Packing NuGet Packages
-      run: dotnet pack --artifacts-path ${{ github.workspace}}/artifacts --output ${{ github.workspace}}/artifacts -p:Version=0.0.0-dev.1 ${{ inputs.solution }}
+      run: dotnet pack --artifacts-path ${{ github.workspace}}/artifacts --output ${{ github.workspace}}/artifacts -p:Version=${GITHUB_REF_NAME#v} ${{ inputs.solution }}
       shell: bash
