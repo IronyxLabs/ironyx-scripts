@@ -9,7 +9,7 @@ on:
 
 jobs:
   cd:
-    run_on: ubuntu-latest
+    runs_on: ubuntu-latest
 
     steps:
       - name: Download artifact
