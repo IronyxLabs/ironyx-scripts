@@ -6,7 +6,7 @@ on:
     workflows: ["Sample NuGet CI"]
     types: ["completed"]
 
-run-name: "[CD] - Publish NuGet Packages"
+run-name: "[RELEASE] - Publish NuGet Packages"
 
 jobs:
   ci:
