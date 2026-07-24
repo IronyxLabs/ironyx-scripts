@@ -76,7 +76,7 @@ jobs:
 
       - name: Create NuGet Packages
         id: pack
-        uses: IronyxLabs/ironyx-scripts/.github/action/dotnet/pack-nuget@feature/6-create-nuget-release-pipeline
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/pack-nuget@feature/6-create-nuget-release-pipeline
         with:
           solution: ${{ inputs.net-solution }}
 
