@@ -1,12 +1,12 @@
 name: Sample NuGet CD
 
+run-name: "[RELEASE] - Publish NuGet Packages"
+
 on:
   workflow_run:
     workflows: [Sample NuGet CI]
     types:
       - completed
-
-run-name: "[RELEASE] - Publish NuGet Packages"
 
 jobs:
   ci:
