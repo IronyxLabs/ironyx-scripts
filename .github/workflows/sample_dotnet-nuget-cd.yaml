@@ -1,10 +1,10 @@
 name: Sample NuGet CD
 
 on:
-  workflow_dispatch:
   workflow_run:
-    workflows: ["Sample NuGet CI"]
-    types: ["completed"]
+    workflows: [Sample NuGet CI]
+    types:
+      - completed
 
 run-name: ${{ format('[RELEASE] - Publish NuGet Packages') }}
 
