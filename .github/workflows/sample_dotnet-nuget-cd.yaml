@@ -5,8 +5,7 @@ run-name: "[RELEASE] - Publish NuGet Packages"
 on:
   workflow_run:
     workflows: [Sample NuGet CI]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
   ci:
