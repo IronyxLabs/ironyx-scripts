@@ -1,0 +1,19 @@
+on:
+  workflow_call:
+    secrets:
+      nuget-api_key:
+        description: NuGet Artifactory token
+        required: true
+
+jobs:
+  - name: Download artifact
+    id: download-artifact
+    uses: actions/download-artifact@v4
+    with:
+      name: build-output
+
+  - name: Publish NuGet Packages
+    id: publish
+    uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-nuget@feature/6-create-nuget-release-pipeline
+    inputs:
+      api_key: ${{ secrets.nuget-api_key }}

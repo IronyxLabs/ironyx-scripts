@@ -1,0 +1,15 @@
+name: Sample NuGet CD
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Sample NuGet CI"]
+    types: ["completed"]
+
+run-name: "[CD] - Publish NuGet Packages"
+
+jobs:
+  ci:
+    uses: IronyxLabs/ironyx-scripts/.github/workflows/dotnet_nuget_cd-pipeline.yaml@feature/6-create-nuget-release-pipeline
+    secrets:
+      nuget-api_key: ${{ secrets.NUGET_API_KEY }}
