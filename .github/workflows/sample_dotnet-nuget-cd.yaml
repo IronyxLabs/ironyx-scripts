@@ -2,7 +2,7 @@ name: Sample NuGet CD
 
 run-name: "[RELEASE] - Publish NuGet Packages"
 
-permission:
+permissions:
   actions: read
 
 on:
