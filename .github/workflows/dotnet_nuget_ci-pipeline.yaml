@@ -68,15 +68,9 @@ jobs:
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
           scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
 
-      - name: Build & Test
+      - name: Build & Test & NuGet
         id: build
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build@v1
-        with:
-          cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
-
-      - name: Create NuGet Packages
-        id: pack
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/pack-nuget@feature/6-create-nuget-release-pipeline
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build-pack-nuget@feature/6-create-nuget-release-pipeline
         with:
           solution: ${{ inputs.net-solution }}
 

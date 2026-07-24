@@ -1,0 +1,37 @@
+name: dotnet.nuget.pack
+description: Packing NuGet package.
+
+inputs:
+  solution:
+    description: Solution name
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Download Dependencies
+      uses: actions/cache@v5
+      with:
+        key: ${{ inputs.cache_key }}
+        path: packages
+
+    - name: Build
+      run: dotnet build --restore --configuration Release --packages ${{ github.workspace}}/packages --artifacts-path ${{ github.workspace}}/artifacts
+      shell: bash
+      working-directory: src
+
+    - name: Packing NuGet Packages
+      run: dotnet pack --artifacts-path ${{ github.workspace}}/artifacts --output ${{ github.workspace}}/artifacts -p:Version=${GITHUB_REF_NAME#v} ${{ inputs.solution }}
+      shell: bash
+
+    - name: Generate Artifact Key
+      id: generate-artifact-key
+      run: echo "ARTIFACT_KEY=artifacts_${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
+        path: ${{ github.workspace }}/artifacts
+        retention-days: 1
