@@ -8,6 +8,10 @@ on:
         description: TestSpace token
         required: true
     inputs:
+      net-solution:
+        description: Dotnet solution name
+        required: true
+        type: string
       sonar-project_key:
         description: SonarQube project key
         required: true
@@ -73,6 +77,8 @@ jobs:
       - name: Execute Tests
         id: test
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@v1
+        with:
+          solution: ${{ inputs.net-solution }}
 
       - name: End SonarQube Analysis
         id: sonar-end
