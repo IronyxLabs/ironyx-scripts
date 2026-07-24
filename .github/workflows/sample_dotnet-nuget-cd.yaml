@@ -16,7 +16,7 @@ jobs:
         id: download-artifact
         uses: actions/download-artifact@v7
         with:
-          name: artifacts_${{ github.event.workflow_run.id }}
+          name: artifacts
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Publish NuGet Packages

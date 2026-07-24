@@ -29,7 +29,7 @@ runs:
 
     - name: Generate Artifact Key
       id: generate-artifact-key
-      run: echo "ARTIFACT_KEY=artifacts_${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+      run: echo "ARTIFACT_KEY=artifacts" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Upload Artifacts
