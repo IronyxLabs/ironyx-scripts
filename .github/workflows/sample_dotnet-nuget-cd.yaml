@@ -6,7 +6,8 @@ on:
   workflow_run:
     workflows:
       - "Sample NuGet CI"
-    types: [completed]
+    types:
+      - completed
 
 jobs:
   ci:
