@@ -2,6 +2,9 @@ name: Sample NuGet CD
 
 run-name: "[RELEASE] - Publish NuGet Packages"
 
+permission:
+  actions: read
+
 on:
   workflow_run:
     workflows: ["Sample NuGet CI"]
