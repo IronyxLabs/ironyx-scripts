@@ -6,7 +6,7 @@ on:
     tags:
       - "v*"
 
-run-name: ${{ format('[TAG] - Build version {0}', github.ref_name#v) }}
+run-name: ${{ format('[TAG] - Build version {0}', github.ref_name) }}
 
 jobs:
   ci:
