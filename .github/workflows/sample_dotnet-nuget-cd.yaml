@@ -8,7 +8,16 @@ on:
     types: [completed]
 
 jobs:
-  ci:
-    uses: IronyxLabs/ironyx-scripts/.github/workflows/dotnet_nuget_cd-pipeline.yaml@feature/6-create-nuget-release-pipeline
-    secrets:
-      nuget-api_key: ${{ secrets.NUGET_API_KEY }}
+  cd:
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: artifacts_${{ github.event.workflow_run.id }}
+
+      - name: Publish NuGet Packages
+        id: publish
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-nuget@feature/6-create-nuget-release-pipeline
+        with:
+          api_key: ${{ secrets.nuget-api_key }}
