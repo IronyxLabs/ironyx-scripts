@@ -6,7 +6,7 @@ on:
     workflows: ["Sample NuGet CI"]
     types: ["completed"]
 
-run-name: "[RELEASE] - Publish NuGet Packages"
+run-name: ${{ format('[RELEASE] - Publish NuGet Packages') }}
 
 jobs:
   ci:
