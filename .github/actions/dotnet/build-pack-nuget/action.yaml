@@ -5,6 +5,9 @@ inputs:
   solution:
     description: Solution name
     required: true
+  cache_key:
+    description: Key of the dendency cache
+    required: true
 
 runs:
   using: composite
