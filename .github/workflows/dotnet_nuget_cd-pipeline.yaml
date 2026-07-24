@@ -19,5 +19,5 @@ jobs:
       - name: Publish NuGet Packages
         id: publish
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-nuget@feature/6-create-nuget-release-pipeline
-        inputs:
+        with:
           api_key: ${{ secrets.nuget-api_key }}
