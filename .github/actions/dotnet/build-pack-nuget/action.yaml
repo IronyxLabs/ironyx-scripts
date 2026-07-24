@@ -33,7 +33,7 @@ runs:
       shell: bash
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v8
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
         path: ${{ github.workspace }}/artifacts
