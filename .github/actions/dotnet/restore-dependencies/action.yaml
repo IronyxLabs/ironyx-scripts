@@ -30,7 +30,8 @@ runs:
     - name: Set NuGet Package Sources
       id: add-package-source
       run: |
-        dotnet nuget add source ironyx \
+        dotnet nuget add source \
+        --name ironyx \
         --username ${{ github.actor }} \
         --password ${{ inputs.github-token }} \
         --store-password-in-clear-text \
