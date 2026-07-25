@@ -1,6 +1,11 @@
 name: dotnet.restore-dependencies
 description: Restoring NuGet dependencies and chaching those.
 
+inputs:
+  github-token:
+    description: GitHub token for IronyxLabs Packages
+    required: true
+
 outputs:
   cache_key:
     description: Generated cache key
@@ -21,6 +26,14 @@ runs:
         key: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
         restore-keys: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
         path: packages
+
+    - name: Set NuGet Package Sources
+      runs: |
+        dotnet nuget add source ironyx \
+        --username ${{ github.actor }}
+        --password ${{ inputs.github-token }}
+        --store-password-in-clear-text
+        --source https://nuget.pkg.github.com/IronyxLabs/index.json
 
     - name: Restore Dependencies
       if: steps.init-cache.outputs.cache-hit != 'true'
