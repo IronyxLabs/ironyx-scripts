@@ -27,6 +27,15 @@ runs:
         restore-keys: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
         path: packages
 
+    - name: Check token
+      run: |
+        if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+          echo "Token is empty"
+          exit 1
+        else
+          echo "Token exists"
+        fi
+
     - name: Set NuGet Package Sources
       id: add-package-source
       run: |
