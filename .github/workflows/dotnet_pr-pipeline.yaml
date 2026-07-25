@@ -46,7 +46,7 @@ jobs:
 
       - name: Restore Dependencies
         id: dependencies
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@fix/add-ironyx-labs-package-source
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@fix/v1
         with:
           github-token: ${{ secrets.github-token }}
 
