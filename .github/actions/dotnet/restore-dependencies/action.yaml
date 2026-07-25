@@ -41,9 +41,9 @@ runs:
       id: add-package-source
       run: |
         dotnet nuget add source ironyx \
-        --username ${{ github.actor }}
-        --password ${{ inputs.github-token }}
-        --store-password-in-clear-text
+        --username ${{ github.actor }} \
+        --password ${{ inputs.github-token }} \
+        --store-password-in-clear-text \
         --source https://nuget.pkg.github.com/IronyxLabs/index.json
       shell: bash
 
