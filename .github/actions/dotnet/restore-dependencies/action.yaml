@@ -28,12 +28,14 @@ runs:
         path: packages
 
     - name: Set NuGet Package Sources
-      runs: |
+      id: add-package-source
+      run: |
         dotnet nuget add source ironyx \
         --username ${{ github.actor }}
         --password ${{ inputs.github-token }}
         --store-password-in-clear-text
         --source https://nuget.pkg.github.com/IronyxLabs/index.json
+      shell: bash
 
     - name: Restore Dependencies
       if: steps.init-cache.outputs.cache-hit != 'true'
