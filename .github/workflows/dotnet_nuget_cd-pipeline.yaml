@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+    secrets:
+      nuget-api_key:
+        description: NuGet Artifactory token
+        required: true
+      github-token:
+        description: GitHub token
+        required: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: artifacts
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.github-token }}
+
+      - name: Publish NuGet Packages
+        id: publish
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/publish-nuget@v1
+        with:
+          api_key: ${{ secrets.nuget-api_key }}

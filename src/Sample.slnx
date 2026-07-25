@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Sample.NuGetPackage/Sample.NuGetPackage.csproj" Id="b79bfe1e-2640-47da-9315-4e36375798c1" />
   <Project Path="Sample.Test.Unit/Sample.Test.Unit.csproj" Id="ac03002f-5408-46f3-a21d-4e843302ffe9" />
   <Project Path="Sample.WebAPI/Sample.WebAPI.csproj" Id="cb668dd7-b206-4d0f-a94a-61903c3503e0" />
 </Solution>
