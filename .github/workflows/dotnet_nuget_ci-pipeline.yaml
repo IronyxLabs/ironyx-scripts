@@ -70,7 +70,7 @@ jobs:
 
       - name: Build & Test & NuGet
         id: build
-        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build-pack-nuget@feature/6-create-nuget-release-pipeline
+        uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build-pack-nuget@v1
         with:
           solution: ${{ inputs.net-solution }}
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
