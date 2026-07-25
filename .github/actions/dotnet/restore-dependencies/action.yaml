@@ -29,7 +29,7 @@ runs:
 
     - name: Check token
       run: |
-        if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+        if [ -z "${{ inputs.github-token }}" ]; then
           echo "Token is empty"
           exit 1
         else
