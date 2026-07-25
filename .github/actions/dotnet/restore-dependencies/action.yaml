@@ -35,6 +35,7 @@ runs:
         else
           echo "Token exists"
         fi
+      shell: bash
 
     - name: Set NuGet Package Sources
       id: add-package-source
