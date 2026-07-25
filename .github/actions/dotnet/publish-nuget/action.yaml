@@ -1,0 +1,14 @@
+name: dotnet.nuget.publish
+description: Publish all NuGet packages from a folder.
+
+inputs:
+  api_key:
+    description: NuGet Artifactory API Key
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Publish NuGet Packages
+      run: dotnet nuget push "**/*.nupkg" --source "https://nuget.pkg.github.com/IronyxLabs/index.json" --api-key ${{ inputs.api_key }}
+      shell: bash

@@ -1,4 +1,4 @@
-name: Sample CI
+name: Sample .NET PR
 
 on:
   pull_request:
@@ -18,3 +18,4 @@ jobs:
       testspace-token: ${{ secrets.TESTSPACE_TOKEN }}
     with:
       sonar-project_key: IronyxLabs_ironyx-scripts
+      net-solution: src/Sample.slnx
