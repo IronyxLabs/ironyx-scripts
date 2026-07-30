@@ -7,6 +7,9 @@ on:
       testspace-token:
         description: TestSpace token
         required: true
+      github-token:
+        description: GitHub token
+        required: true
     inputs:
       net-solution:
         description: Dotnet solution name
@@ -44,6 +47,8 @@ jobs:
       - name: Restore Dependencies
         id: dependencies
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/restore-dependencies@v1
+        with:
+          github-token: ${{ secrets.github-token }}
 
   build:
     needs: [pre, restore-dependencies]
