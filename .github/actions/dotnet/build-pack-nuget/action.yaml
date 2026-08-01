@@ -8,6 +8,9 @@ inputs:
   cache_key:
     description: Key of the dendency cache
     required: true
+  github-token:
+    description: GitHub token
+    required: true
 
 runs:
   using: composite
@@ -17,6 +20,17 @@ runs:
       with:
         key: ${{ inputs.cache_key }}
         path: packages
+
+    - name: Set NuGet Package Sources
+      id: add-package-source
+      run: |
+        dotnet nuget add source \
+        --name ironyx \
+        --username ${{ github.actor }} \
+        --password ${{ inputs.github-token }} \
+        --store-password-in-clear-text \
+        https://nuget.pkg.github.com/IronyxLabs/index.json
+      shell: bash
 
     - name: Build
       run: dotnet build --restore --configuration Release --packages ${{ github.workspace}}/packages --artifacts-path ${{ github.workspace}}/artifacts
