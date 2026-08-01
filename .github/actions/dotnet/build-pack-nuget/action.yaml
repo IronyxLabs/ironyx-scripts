@@ -2,6 +2,9 @@ name: dotnet.nuget.pack
 description: Packing NuGet package.
 
 inputs:
+  solution:
+    description: Path to the solution file
+    required: true
   cache_key:
     description: Key of the dendency cache
     required: true

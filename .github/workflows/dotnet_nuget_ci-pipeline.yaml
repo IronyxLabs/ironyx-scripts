@@ -11,6 +11,10 @@ on:
         description: GitHub token
         required: true
     inputs:
+      net-solution:
+        description: Dotnet solution name
+        required: true
+        type: string
       sonar-project_key:
         description: SonarQube project key
         required: true
@@ -74,6 +78,7 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build-pack-nuget@v1
         with:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
+          solution: ${{ inputs.solution }}
 
       - name: Execute Tests
         id: test
