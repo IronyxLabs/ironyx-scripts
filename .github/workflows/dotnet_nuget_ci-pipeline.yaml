@@ -73,18 +73,15 @@ jobs:
           packages_cache_key: ${{ needs.pre.outputs.sonar-packages_cache_key }}
           scanner_cache_key: ${{ needs.pre.outputs.sonar-scanner_cache_key }}
 
-      - name: Build & Test & NuGet
+      - name: Build & Pack NuGet
         id: build
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build-pack-nuget@v1
         with:
-          solution: ${{ inputs.net-solution }}
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
 
       - name: Execute Tests
         id: test
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/test@v1
-        with:
-          solution: ${{ inputs.net-solution }}
 
       - name: End SonarQube Analysis
         id: sonar-end
