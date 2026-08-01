@@ -78,7 +78,7 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/dotnet/build-pack-nuget@v1
         with:
           cache_key: ${{ needs.restore-dependencies.outputs.cache_key }}
-          solution: ${{ inputs.solution }}
+          solution: ${{ inputs.net-solution }}
 
       - name: Execute Tests
         id: test
