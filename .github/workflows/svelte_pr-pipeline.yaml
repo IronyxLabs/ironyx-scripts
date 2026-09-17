@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    secrets:      
+      testspace-token:
+        description: TestSpace token
+        required: true
     inputs:
       working-directory:
         description: Working directory. Default is src
@@ -43,4 +47,9 @@ jobs:
         with:
           working-directory: ${{ inputs.working-directory }}
   
+      - name: Test
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/test@feature/12-create-ci-pipeline-for-svelte
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          token: ${{ secrets.testspace-token }}
       
