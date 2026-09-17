@@ -37,5 +37,10 @@ jobs:
         uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/install@feature/12-create-ci-pipeline-for-svelte
         with:
           working-directory: ${{ inputs.working-directory }}
+
+      - name: Lint
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/lint@feature/12-create-ci-pipeline-for-svelte
+        with:
+          working-directory: ${{ inputs.working-directory }}
   
       
