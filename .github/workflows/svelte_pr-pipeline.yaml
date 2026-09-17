@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v6
+      
+      - name: Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cach-dependency-path: src/pnpm-lock.yaml
+
+      - name: Install Dependencies
+        uses: IronyxLabe/ironyx-scripts/.github/actions/pnpm/install@feature/12-create-ci-pipeline-for-svelte
+  
+      

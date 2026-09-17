@@ -1,0 +1,13 @@
+name: pnpm.install
+description: Allows install dependencies via pnpm
+
+outputs:
+  cache_key:
+    description: Generated cache key
+    value: ${{ steps.generate-cache-key.outputs.CACHE_KEY }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install Dependencies
+      run: pnpm install --frozen-lockfile
