@@ -12,4 +12,4 @@ runs:
     - name: Lint
       run: pnpm lint
       shell: bash
-      working-directory: ${{ working-directory }}
+      working-directory: ${{ inputs.working-directory }}
