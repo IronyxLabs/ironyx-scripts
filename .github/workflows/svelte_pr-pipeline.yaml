@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          cach-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install Dependencies
         uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/install@feature/12-create-ci-pipeline-for-svelte
