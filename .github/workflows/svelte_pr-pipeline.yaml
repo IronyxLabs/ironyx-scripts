@@ -1,5 +1,10 @@
 on:
   workflow_call:
+    inputs:
+      pnpm-lock_path:
+        description: Path of the pnpm-lock.yaml
+        type: string
+        default: src/pnpm-lock.yaml
 
 permissions:
   contents: read
@@ -26,7 +31,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: ${{ inputs.pnpm-lock_path }}
 
       - name: Install Dependencies
         uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/install@feature/12-create-ci-pipeline-for-svelte
