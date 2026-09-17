@@ -1,6 +1,11 @@
 name: pnpm.install
 description: Allows install dependencies via pnpm
 
+inputs:
+  working-directory:
+    description: Working directory 
+    required: true
+
 outputs:
   cache_key:
     description: Generated cache key
@@ -12,4 +17,4 @@ runs:
     - name: Install Dependencies
       run: pnpm install --frozen-lockfile
       shell: bash
-      working-directory: src
+      working-directory: ${{ inputs.working-directory }}
