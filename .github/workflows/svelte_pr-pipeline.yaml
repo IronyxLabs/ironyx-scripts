@@ -52,4 +52,9 @@ jobs:
         with:
           working-directory: ${{ inputs.working-directory }}
           token: ${{ secrets.testspace-token }}
+
+      - name: Build
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/build@feature/12-create-ci-pipeline-for-svelte
+        with:
+          working-directory: ${{ inputs.working-directory }}
       
