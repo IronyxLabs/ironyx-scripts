@@ -24,7 +24,7 @@ runs:
 
     - name: Publish Test Result
       id: publish
-      run: testspace test_results/*.xml
+      run: testspace test_results/*.xml coverage/lcov.info
       if: always()
       shell: bash
       working-directory: ${{ inputs.working-directory }}
