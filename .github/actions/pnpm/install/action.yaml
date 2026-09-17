@@ -11,3 +11,5 @@ runs:
   steps:
     - name: Install Dependencies
       run: pnpm install --frozen-lockfile
+      shell: bash
+      working-directory: src
