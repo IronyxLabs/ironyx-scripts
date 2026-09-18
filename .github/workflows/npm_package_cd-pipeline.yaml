@@ -1,24 +1,9 @@
 on:
   workflow_call:
-    secrets:      
-      testspace-token:
-        description: TestSpace token
-        required: true
-      sonar-token:
-        description: SonarCloud token
-        required: true
+    secrets:     
       github-token:
         description: GitHub token
         required: true
-    inputs:
-      sonar-project_key:
-        description: SonarCloud project key
-        type: string
-        required: true
-      working-directory:
-        description: Working directory. Default is src
-        type: string
-        default: src
 
 permissions:
   contents: read
