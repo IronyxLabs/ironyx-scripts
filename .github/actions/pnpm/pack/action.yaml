@@ -30,3 +30,4 @@ runs:
         name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
         path: ${{ github.workspace }}/artifacts
         retention-days: 1
+      working-directory: ${{ inputs.working-directory }}
