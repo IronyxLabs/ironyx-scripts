@@ -25,6 +25,5 @@ runs:
           -Dsonar.organization=ironyxlabs
           -Dsonar.projectKey=${{ inputs.project-key }}
           -Dsonar.sources=${{ inputs.working-directory }}
-          -Dsonar.tests=**/*.test
           -Dsonar.tests.exclusions=**/*.test.*,**/__test_utils__/**
           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
