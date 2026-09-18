@@ -1,0 +1,32 @@
+name: pnpm.pack
+description: Pack npm packages
+
+inputs:
+  working-directory:
+    description: Working directory
+    default: src
+
+runs:
+  using: composite
+  steps:
+    - name: Set Version
+      run: pnpm version "${GITHUB_REF_NAME#v}" --no-git-tag-version
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      
+    - name: Generate Artifact Key
+      id: generate-artifact-key
+      run: echo "ARTIFACT_KEY=artifacts" >> "$GITHUB_OUTPUT"
+      shell: bash
+      
+    - name: Pack
+      run: pnpm pack --pack-destination artifacts
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
+        path: ${{ github.workspace }}/artifacts
+        retention-days: 1

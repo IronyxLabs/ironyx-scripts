@@ -1,0 +1,78 @@
+on:
+  workflow_call:
+    secrets:      
+      testspace-token:
+        description: TestSpace token
+        required: true
+      sonar-token:
+        description: SonarCloud token
+        required: true
+    inputs:
+      sonar-project_key:
+        description: SonarCloud project key
+        type: string
+        required: true
+      working-directory:
+        description: Working directory. Default is src
+        type: string
+        default: src
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        id: checkout
+        uses: actions/checkout@v6
+      
+      - name: Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ${{ inputs.working-directory }}/pnpm-lock.yaml
+
+      - name: Install Dependencies
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/install@v1
+        with:
+          working-directory: ${{ inputs.working-directory }}
+
+      - name: Lint
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/lint@v1
+        with:
+          working-directory: ${{ inputs.working-directory }}
+  
+      - name: Test
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/test@v1
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          token: ${{ secrets.testspace-token }}
+
+      - name: Build
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/build@v1
+        with:
+          working-directory: ${{ inputs.working-directory }}
+
+      - name: Analyze
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/typescript/analyze@v1
+        with:
+          token: ${{ secrets.sonar-token }}
+          working-directory: ${{ inputs.working-directory }}
+          project-key: ${{ inputs.sonar-project_key }}
+
+      - name: Pack
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/pack/analyze@feature/13-create-cd-pipeline-for-svelte-package
+        with:
+          working-directory: ${{ inputs.working-directory }}
