@@ -1,0 +1,42 @@
+on:
+  workflow_call:
+    secrets:     
+      github-token:
+        description: GitHub token
+        required: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@IronyxLabs'
+          
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: artifacts
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.github-token }}
+
+      - name: Publish
+        id: publish
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/publish@v1
+        with:
+          token: ${{ secrets.github-token }}
