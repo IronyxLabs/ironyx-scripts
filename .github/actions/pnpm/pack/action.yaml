@@ -28,6 +28,5 @@ runs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.generate-artifact-key.outputs.ARTIFACT_KEY }}
-        path: ${{ github.workspace }}/artifacts
+        path: ${{ github.workspace }}/${{ inputs.working-directory }}/artifacts
         retention-days: 1
-      working-directory: ${{ inputs.working-directory }}
