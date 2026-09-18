@@ -37,6 +37,6 @@ jobs:
 
       - name: Publish
         id: publish
-        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/publish@feature/13-create-cd-pipeline-for-svelte-package
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/publish@v1
         with:
           token: ${{ secrets.github-token }}
