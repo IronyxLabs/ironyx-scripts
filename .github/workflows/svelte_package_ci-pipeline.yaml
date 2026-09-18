@@ -73,6 +73,6 @@ jobs:
           project-key: ${{ inputs.sonar-project_key }}
 
       - name: Pack
-        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/pack/analyze@feature/13-create-cd-pipeline-for-svelte-package
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/pack@feature/13-create-cd-pipeline-for-svelte-package
         with:
           working-directory: ${{ inputs.working-directory }}
