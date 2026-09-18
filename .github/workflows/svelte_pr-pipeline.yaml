@@ -45,28 +45,28 @@ jobs:
           cache-dependency-path: ${{ inputs.working-directory }}/pnpm-lock.yaml
 
       - name: Install Dependencies
-        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/install@feature/12-create-ci-pipeline-for-svelte
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/install@v1
         with:
           working-directory: ${{ inputs.working-directory }}
 
       - name: Lint
-        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/lint@feature/12-create-ci-pipeline-for-svelte
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/lint@v1
         with:
           working-directory: ${{ inputs.working-directory }}
   
       - name: Test
-        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/test@feature/12-create-ci-pipeline-for-svelte
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/test@v1
         with:
           working-directory: ${{ inputs.working-directory }}
           token: ${{ secrets.testspace-token }}
 
       - name: Build
-        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/build@feature/12-create-ci-pipeline-for-svelte
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/build@v1
         with:
           working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/typescript/analyze@feature/12-create-ci-pipeline-for-svelte
+        uses: IronyxLabs/ironyx-scripts/.github/actions/sonar/typescript/analyze@v1
         with:
           token: ${{ secrets.sonar-token }}
           working-directory: ${{ inputs.working-directory }}
