@@ -15,14 +15,15 @@ inputs:
 runs:
   using: Composite
   steps:
-    uses: SonarSource/sonarqube-scan-action@v6
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      projectBaseDir: ${{ inputs.working-directory }}
-      args: >
-        -Dsonar.orgranization=ironyxlabs
-        -Dsonar.projectKey=${{ inputs.project-key }}
-        -Dsonar.sources=${{ inputs.working-directory }}
-        -Dsonar.tests=**/*.test
-        -Dsonar.tests.exclusions=**/*.test.*,**/__test_utils__/**
-        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+    - name: Perform SonarCloud Analysis
+      uses: SonarSource/sonarqube-scan-action@v6
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        projectBaseDir: ${{ inputs.working-directory }}
+        args: >
+          -Dsonar.orgranization=ironyxlabs
+          -Dsonar.projectKey=${{ inputs.project-key }}
+          -Dsonar.sources=${{ inputs.working-directory }}
+          -Dsonar.tests=**/*.test
+          -Dsonar.tests.exclusions=**/*.test.*,**/__test_utils__/**
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
