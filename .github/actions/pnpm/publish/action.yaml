@@ -17,4 +17,4 @@ runs:
       run: pnpm publish *.tgz --no-git-checks
       shell: bash
       env:
-          NODE_AUTH_TOKEN: ${{ inputs.token }}
+        NODE_AUTH_TOKEN: ${{ inputs.token }}
