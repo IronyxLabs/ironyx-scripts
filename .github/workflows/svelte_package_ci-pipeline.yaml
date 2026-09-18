@@ -22,7 +22,7 @@ permissions:
   packages: read
 
 jobs:
-  build:
+  pack:
     runs-on: ubuntu-latest
 
     steps:
