@@ -1,0 +1,50 @@
+on:
+  workflow_call:
+    secrets:      
+      testspace-token:
+        description: TestSpace token
+        required: true
+      sonar-token:
+        description: SonarCloud token
+        required: true
+      github-token:
+        description: GitHub token
+        required: true
+    inputs:
+      sonar-project_key:
+        description: SonarCloud project key
+        type: string
+        required: true
+      working-directory:
+        description: Working directory. Default is src
+        type: string
+        default: src
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup pnpm
+        id: setup-pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: artifacts
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.github-token }}
+
+      - name: Publish
+        id: publish
+        uses: IronyxLabs/ironyx-scripts/.github/actions/pnpm/publish@feature/13-create-cd-pipeline-for-svelte-package
+        with:
+          token: ${{ secrets.github-token }}
