@@ -21,7 +21,7 @@ runs:
         SONAR_TOKEN: ${{ inputs.token }}
         projectBaseDir: ${{ inputs.working-directory }}
         args: >
-          -Dsonar.orgranization=ironyxlabs
+          -Dsonar.organization=ironyxlabs
           -Dsonar.projectKey=${{ inputs.project-key }}
           -Dsonar.sources=${{ inputs.working-directory }}
           -Dsonar.tests=**/*.test
