@@ -14,7 +14,7 @@ runs:
       shell: bash
           
     - name: Publish
-      run: pnpm publish **/*.tgz --no-git-checks
+      run: pnpm publish *.tgz --no-git-checks
       shell: bash
       env:
           NODE_AUTH_TOKEN: ${{ inputs.token }}
