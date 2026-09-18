@@ -10,8 +10,11 @@ runs:
   using: composite
   steps:
     - name: Publish
+      run: ls -a
+      shell: bash
+          
+    - name: Publish
       run: pnpm publish **/*.tgz --no-git-checks
-      working-directory: ${{ inputs.working-directory }}
       shell: bash
       env:
           NODE_AUTH_TOKEN: ${{ inputs.token }}
