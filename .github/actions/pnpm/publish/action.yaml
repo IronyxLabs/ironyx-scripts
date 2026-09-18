@@ -1,0 +1,17 @@
+name: pnpm.publish
+description: Allow publishing of npm packages to IronyxLabs artifactory
+
+inputs:
+  token:
+    description: GitHub Token
+    required: true
+    
+runs:
+  using: composite
+  steps:
+    - name: Publish
+      run: pnpm publish --no-git-checks
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+      env:
+          NODE_AUTH_TOKEN: ${{ inputs.token }}
