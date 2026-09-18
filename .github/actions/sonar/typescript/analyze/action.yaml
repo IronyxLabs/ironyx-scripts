@@ -1,0 +1,28 @@
+name: sonar.typescript.analyze
+description: Perform SonarCloud analysis on typescript project
+
+inputs:
+  token:
+    description: Sonar Token
+    required: true
+  working-directory:
+    description: Working Directory
+    default: src
+  project-key:
+    description: Sonar project key
+    required: true
+
+runs:
+  using: Composite
+  steps:
+    - name: Perform SonarCloud Analysis
+      uses: SonarSource/sonarqube-scan-action@v6
+      env:
+        SONAR_TOKEN: ${{ inputs.token }}
+      with:
+        args: >
+          -Dsonar.organization=ironyxlabs
+          -Dsonar.projectKey=${{ inputs.project-key }}
+          -Dsonar.sources=${{ inputs.working-directory }}
+          -Dsonar.tests.exclusions=**/*.test.*,**/__test_utils__/**
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info

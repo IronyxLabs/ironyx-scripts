@@ -1,0 +1,32 @@
+name: pnpm.test
+description: Allows execute test
+
+inputs:
+  working-directory:
+    description: Working directory
+    required: true
+  token:
+    description: TestSpace token
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install TestSpace CLI
+      uses: testspace-com/setup-testspace@v1
+      with:
+        domain: ${{ github.repository_owner }}
+        
+    - name: Test
+      run: pnpm test:ci
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Publish Test Result
+      id: publish
+      run: testspace test_results/*.xml
+      if: always()
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        TESTSPACE_TOKEN: ${{ inputs.token }}
